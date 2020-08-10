@@ -7,12 +7,9 @@ import (
 	"github.com/darksasori/finance/pkg/model"
 )
 
-const URI = "mongodb://localhost:27017/"
-const DB = "testing"
-
 func TestUserFindOne(t *testing.T) {
 	ctx := context.TODO()
-	if err := Connect(URI, DB, ctx); err != nil {
+	if err := Connect(ctx); err != nil {
 		t.Error(err)
 		return
 	}
@@ -46,7 +43,7 @@ func TestUserFindOne(t *testing.T) {
 
 func TestUserInsert(t *testing.T) {
 	ctx := context.TODO()
-	if err := Connect(URI, DB, ctx); err != nil {
+	if err := Connect(ctx); err != nil {
 		t.Error(err)
 		return
 	}
@@ -64,7 +61,7 @@ func TestUserInsert(t *testing.T) {
 
 func TestUserUpdate(t *testing.T) {
 	ctx := context.TODO()
-	if err := Connect(URI, DB, ctx); err != nil {
+	if err := Connect(ctx); err != nil {
 		t.Error(err)
 		return
 	}
@@ -88,7 +85,7 @@ func TestUserUpdate(t *testing.T) {
 
 func TestUserDelete(t *testing.T) {
 	ctx := context.TODO()
-	if err := Connect(URI, DB, ctx); err != nil {
+	if err := Connect(ctx); err != nil {
 		t.Error(err)
 		return
 	}

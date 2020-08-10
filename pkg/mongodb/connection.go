@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/darksasori/finance/pkg/utils"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -11,7 +12,9 @@ import (
 var client *mongo.Client
 var conn *mongo.Database
 
-func Connect(uri, db string, ctx context.Context) error {
+func Connect(ctx context.Context) error {
+	uri := utils.GetEnv("MONGODB_URI", "mongodb://localhost:27017")
+	db := utils.GetEnv("MONGODB_DB", "testing")
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
 		return err
