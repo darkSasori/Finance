@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"golang.org/x/crypto/bcrypt"
@@ -78,5 +79,32 @@ func TestUserLogin(t *testing.T) {
 	_, err = service.Login(ctx, "test", "test")
 	if err != nil {
 		t.Error(err)
+	}
+}
+
+func TestCheckToken(t *testing.T) {
+	ctx := context.TODO()
+	repo := &userRepo{}
+	user := model.NewUser("test", "test", "test", "test")
+	service := NewUser(repo)
+	repo.Insert(ctx, user)
+
+	token, err := service.Login(ctx, "test", "test")
+	if err != nil {
+		t.Error(err)
+	}
+
+	user2, err := service.CheckToken(ctx, fmt.Sprintf("%stoken", token))
+	if err == nil {
+		t.Error("Expected an error")
+	}
+
+	user2, err = service.CheckToken(ctx, token)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if user.Username != user2.Username {
+		t.Errorf("Expected %s, received %s", user.Username, user2.Username)
 	}
 }

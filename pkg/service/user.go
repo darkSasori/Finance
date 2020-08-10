@@ -59,5 +59,10 @@ func (u *User) Login(ctx context.Context, username, password string) (string, er
 
 // CheckToken verify token
 func (u *User) CheckToken(ctx context.Context, token string) (*model.User, error) {
-	return nil, nil
+	username, err := decode(token)
+	if err != nil {
+		return &model.User{}, err
+	}
+
+	return u.repo.FindOne(ctx, username)
 }
