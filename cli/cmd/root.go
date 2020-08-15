@@ -54,7 +54,7 @@ var root = &cobra.Command{
 			return err
 		}
 
-		logged, err := userService.CheckToken(cmd.Context(), string(data))
+		logged, err = userService.CheckToken(cmd.Context(), string(data))
 		if err != nil {
 			return err
 		}
