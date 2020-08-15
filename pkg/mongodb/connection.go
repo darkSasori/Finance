@@ -29,11 +29,11 @@ func Connect(ctx context.Context) error {
 	defer cancel()
 
 	if err = client.Ping(ctx, nil); err != nil {
-		return nil
+		return err
 	}
 
 	database := client.Database(db)
 	conn = database
 
-	return nil
+	return err
 }
